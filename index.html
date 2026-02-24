@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <title>Cognify AI</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,Arial,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(135deg,#eef5ff,#dbeafe);
+color:#0f172a;
+transition:0.4s;
+overflow-x:hidden;
+}
+
+/* PARTICLES */
+#particles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* NAVIGATION */
+nav{
+position:fixed;
+width:100%;
+top:0;
+background:rgba(255,255,255,0.95);
+backdrop-filter:blur(10px);
+box-shadow:0 4px 15px rgba(0,0,0,0.05);
+z-index:100;
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#2563eb;
+}
+
+.nav-links{
+display:flex;
+gap:25px;
+align-items:center;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#0f172a;
+font-weight:500;
+transition:0.3s;
+}
+
+.nav-links a:hover{
+color:#2563eb;
+}
+
+.dropdown{
+position:relative;
+}
+
+.dropdown-menu{
+position:absolute;
+top:45px;
+right:0;
+background:white;
+border-radius:12px;
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+display:none;
+flex-direction:column;
+min-width:180px;
+padding:10px 0;
+opacity:0;
+transform:translateY(-10px);
+transition:0.3s;
+}
+
+.dropdown-menu.show{
+display:flex;
+opacity:1;
+transform:translateY(0);
+}
+
+.dropdown-menu a{
+padding:12px 15px;
+text-decoration:none;
+color:#0f172a;
+font-weight:500;
+}
+
+.dropdown-menu a:hover{
+background:#e0edff;
+}
+
+.btn{
+background:linear-gradient(135deg,#2563eb,#3b82f6);
+color:white;
+padding:10px 20px;
+border-radius:25px;
+text-decoration:none;
+font-weight:500;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(37,99,235,0.4);
+}
+
+.theme-toggle{
+background:#e0edff;
+border:none;
+width:40px;
+height:40px;
+border-radius:50%;
+cursor:pointer;
+}
+
+/* HERO */
+.hero{
+padding-top:150px;
+padding-bottom:100px;
+text-align:center;
+}
+
+#typewriter{
+font-family:Courier New,monospace;
+font-size:38px;
+font-weight:700;
+min-height:50px;
+}
+
+.highlight-box{
+margin-top:30px;
+display:inline-block;
+padding:20px 50px;
+border-radius:60px;
+background:linear-gradient(90deg,#60a5fa,#1e3a8a);
+color:white;
+font-weight:700;
+box-shadow:0 0 30px rgba(37,99,235,0.4);
+}
+
+/* SECTIONS */
+section{
+padding:90px 0;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:50px;
+font-size:28px;
+font-weight:bold;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,0.05);
+transition:0.3s;
+text-align:center;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Fix Explore button padding only inside cards */
+.card .btn{
+padding:16px 42px !important;
+margin-top:25px !important;
+line-height:1 !important;
+display:inline-block;
+}
+
+/* TEAM */
+.team-card{
+display:flex;
+align-items:center;
+gap:15px;
+background:white;
+padding:20px;
+border-radius:16px;
+box-shadow:0 8px 25px rgba(0,0,0,0.05);
+cursor:pointer;
+transition:0.3s;
+}
+
+.team-card:hover{
+transform:translateY(-6px);
+}
+
+.avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+background:linear-gradient(135deg,#2563eb,#3b82f6);
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-weight:bold;
+}
+
+.linkedin{
+margin-left:auto;
+color:#0a66c2;
+font-size:20px;
+}
+
+/* FOOTER */
+footer{
+background:white;
+padding:60px 20px;
+text-align:center;
+line-height:2;
+color:#64748b;
+}
+
+/* DARK MODE */
+body.dark{
+background:#0f172a;
+color:white;
+}
+
+body.dark nav{
+background:#1e293b;
+}
+
+body.dark .nav-links a{
+color:white;
+}
+
+body.dark .dropdown-menu{
+background:#1e293b;
+}
+
+body.dark .dropdown-menu a{
+color:white;
+}
+
+body.dark .card,
+body.dark .team-card,
+body.dark footer{
+background:#1e293b;
+color:white;
+}
+
+body.dark .btn{
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav>
+<div class="container navbar">
+<div class="logo" onclick="scrollToTop()">Cognify</div>
+
+<div class="nav-links">
+<a href="#modules">Modules</a>
+<a href="#team">Team</a>
+
+<div class="dropdown">
+<a href="javascript:void(0)" id="githubBtn">GitHub ▾</a>
+<div class="dropdown-menu" id="githubMenu">
+<a href="https://github.com/ATS-001/study-ai">StudyAI Repo</a>
+<a href="https://github.com/abhinavnixabvv-hue/speak-easy-tools">Speak Easy Repo</a>
+</div>
+</div>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+</div>
+</div>
+</nav>
+
+<section class="hero">
+<div class="container">
+<h1 id="typewriter"></h1>
+<div class="highlight-box">
+Smart planning and accessible learning in one platform
+</div>
+</div>
+</section>
+
+<section id="modules">
+<div class="container">
+<div class="section-title">Our Modules</div>
+<div class="grid">
+<div class="card">
+<h3>StudyAI</h3>
+<p>AI-based smart study planner for personalized scheduling.</p>
+<p></p>
+<a href="#" class="btn">Explore</a>
+</div>
+
+<div class="card">
+<h3>Speak Easy Tools</h3>
+<p>Inclusive tools supporting speech and assistive learning.</p>
+<p></p>
+<a href="https://speak-easy-tools.vercel.app/" class="btn">Explore</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="team">
+<div class="container">
+<div class="section-title">Built by <strong>Students</strong> from <strong>VAST</strong></div>
+<div class="grid">
+
+<div class="team-card" onclick="window.open('https://www.linkedin.com/in/aaronts127pdz/')">
+<div class="avatar">ATS</div>
+Aaron Thalakkottor Sooraj<br>
+Founder (Cognify)<br>
+Co-Developer (StudyAI)
+<div class="linkedin">in</div>
+</div>
+
+<div class="team-card" onclick="window.open('https://www.linkedin.com/in/alwin-thomas-v-033057384/')">
+<div class="avatar">AT</div>
+Alwin Thomas V<br>
+Co-Developer (Study AI)
+<div class="linkedin">in</div>
+</div>
+
+<div class="team-card" onclick="window.open('https://www.linkedin.com/in/abhinav-n-713a84383/')">
+<div class="avatar">AN</div>
+Abhinav N<br>
+Co-Developer (Speak Easy Tools)
+<div class="linkedin">in</div>
+</div>
+
+<div class="team-card" onclick="window.open('https://www.linkedin.com/in/adithya-binesh-631270388/')">
+<div class="avatar">AB</div>
+Adithya Binesh<br>
+Co-Developer (Speak Easy Tools)
+<div class="linkedin">in</div>
+</div>
+
+<div class="team-card" onclick="window.open('https://www.linkedin.com/in/adhin-seby-4b6b45384/')">
+<div class="avatar">AS</div>
+Adhin Seby
+<div class="linkedin">in</div>
+</div>
+
+<div class="team-card" onclick="window.open('https://www.linkedin.com/in/akshay-t-s-487b90382/')">
+<div class="avatar">AK</div>
+Akshay T S
+<div class="linkedin">in</div>
+</div>
+
+
+</div>
+</div>
+</section>
+
+<footer>
+<p><center>Developed by <strong>Students</strong> of <i>Vidya Academy of Science and Technology</i></center><p>
+<p>LEGAL- A PART OF ATS_PDZ (AARONTS)</p>
+<p>COPYRIGHT © SINCE 2023 | ATS-PDZ</p>
+<p>ALL RIGHTS RESERVED.</p>
+</footer>
+
+<script>
+//SCROLL TO TOP
+function scrollToTop(){
+window.scrollTo({
+top: 0,
+behavior: "smooth"
+});
+}
+// TYPEWRITER
+const text="AI-Based Personalized and Inclusive Learning Platform";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typewriter").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,40);
+}
+}
+type();
+
+// DROPDOWN FIX
+const btn=document.getElementById("githubBtn");
+const menu=document.getElementById("githubMenu");
+
+btn.addEventListener("click",(e)=>{
+e.stopPropagation();
+menu.classList.toggle("show");
+});
+
+document.addEventListener("click",()=>{
+menu.classList.remove("show");
+});
+
+// DARK MODE
+function toggleTheme(){
+document.body.classList.toggle("dark");
+
+const btn = document.querySelector(".theme-toggle");
+
+if(document.body.classList.contains("dark")){
+    btn.textContent = "☀️";
+} else {
+    btn.textContent = "🌙";
+}
+}
+
+// PARTICLES (Brownian Motion)
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+for(let i=0;i<80;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.5,
+vy:(Math.random()-0.5)*0.5,
+r:2+Math.random()*2
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.x+=p.vx+(Math.random()-0.5)*0.3;
+p.y+=p.vy+(Math.random()-0.5)*0.3;
+
+if(p.x<0||p.x>canvas.width)p.vx*=-1;
+if(p.y<0||p.y>canvas.height)p.vy*=-1;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle=document.body.classList.contains("dark")?"white":"#3b82f6";
+ctx.fill();
+});
+
+requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
