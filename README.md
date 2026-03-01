@@ -1,4 +1,4 @@
-# Cognify AI
+# HexnicAI
 
 ![Built With](https://img.shields.io/badge/Built%20With-HTML%20%7C%20CSS%20%7C%20JavaScript-blue)
 ![Status](https://img.shields.io/badge/Status-Live-success)
@@ -11,14 +11,14 @@ AI-Based Personalized and Inclusive Learning Platform
 
 ## 🌍 Overview
 
-Cognify AI is a student-built platform focused on intelligent academic planning and inclusive digital learning tools.
+HexnicAI is a student-built platform focused on intelligent academic planning and inclusive digital learning tools.
 
 It acts as the umbrella ecosystem for:
 
 - **StudyAI** – AI-powered smart study planning system  
 - **Speak Easy Tools** – Accessibility-focused learning solutions  
 
-Cognify aims to combine smart planning and accessible learning into one unified platform.
+HexnicAI aims to combine smart planning and accessible learning into one unified platform.
 
 ---
 
@@ -37,7 +37,7 @@ Cognify aims to combine smart planning and accessible learning into one unified 
 ## 🏗 Project Structure
 
 ```
-CognifyAI/
+HexnicAI/
 │
 ├── index.html
 ├── favicon.png
@@ -46,7 +46,7 @@ CognifyAI/
 ---
 ## 🌐 Live Website
 
-https://ats-001.github.io/CognifyAI/
+https://ats-001.github.io/HexnicAI/
 ---
 
 ## 🌐 Deployment
@@ -63,7 +63,7 @@ Students of Vidya Academy of Science and Technology (VAST)
 
 - Aaron Thalakkottor Sooraj
 
-    Founder (Cognify) / Co-Developer (StudyAI)
+    Founder (Hexnic) / Co-Developer (StudyAI)
 
 - Alwin Thomas V
 
