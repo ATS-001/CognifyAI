@@ -65,6 +65,20 @@ font-weight:bold;
 color:#2563eb;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.nav-logo {
+  height: 28px;
+  width: 28px;
+}
+
 .nav-links{
 display:flex;
 gap:25px;
@@ -292,7 +306,10 @@ background:linear-gradient(135deg,#3b82f6,#2563eb);
 
 <nav>
 <div class="container navbar">
-<div class="logo" onclick="scrollToTop()">HexnicAI</div>
+<div class="logo" onclick="scrollToTop()">
+  <img src="logo.png" alt="HexnicAI Logo" class="nav-logo">
+  <span>HexnicAI</span>
+</div>
 
 <div class="nav-links">
 <a href="#modules">Modules</a>
