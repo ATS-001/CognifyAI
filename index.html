@@ -9,6 +9,9 @@
     <meta property="og:image" content="https://ats-001.github.io/HexnicAI/og-image.png">
     <meta property="og:url" content="https://ats-001.github.io/HexnicAI/">
     <meta property="og:type" content="website">
+    <!-- PWA SUPPORT -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
     <style>
 *{
 margin:0;
@@ -343,6 +346,8 @@ letter-spacing:1px;
 <div class="container">
 <h1 id="typewriter"></h1>
 <div class="highlight-box">
+<br><br>
+<button id="installBtn" class="btn" style="display:none;">Install HexnicAI App</button>
 Smart planning and accessible learning in one platform
 </div>
 </div>
@@ -517,6 +522,24 @@ ctx.fill();
 requestAnimationFrame(animate);
 }
 animate();
+
+/* PWA INSTALL */
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt',(e)=>{
+e.preventDefault();
+deferredPrompt = e;
+
+const btn = document.getElementById("installBtn");
+btn.style.display = "inline-block";
+
+btn.addEventListener("click",()=>{
+deferredPrompt.prompt();
+deferredPrompt.userChoice.then(()=>{
+deferredPrompt=null;
+});
+});
+});
 </script>
 
 </body>
