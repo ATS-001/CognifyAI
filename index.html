@@ -7,540 +7,245 @@
     <meta property="og:title" content="HexnicAI - Personalized & Inclusive Learning Platform">
     <meta property="og:description" content="AI-based smart planning and accessibility tools in one unified platform.">
     <meta property="og:image" content="https://ats-001.github.io/HexnicAI/og-image.png">
-    <meta property="og:url" content="https://ats-001.github.io/HexnicAI/">
-    <meta property="og:type" content="website">
-    <!-- PWA SUPPORT -->
+    <meta property="og:url" content="https://ats-001.github.io/HexnicAI/"
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2563eb">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,Arial,sans-serif;
-scroll-behavior:smooth;
-}
+        :root {
+            --primary: #2563eb;
+            --accent: #3b82f6;
+            --gradient: linear-gradient(135deg, #2563eb, #3b82f6);
+            --bg: #eef5ff;
+            --text: #0f172a;
+            --card: #ffffff;
+            --transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --hero-text: #2563eb;
+        }
 
-body{
-background:linear-gradient(135deg,#eef5ff,#dbeafe);
-color:#0f172a;
-transition:0.4s;
-overflow-x:hidden;
-}
+        body.dark {
+            --bg: #0f172a;
+            --text: #f8fafc;
+            --card: #1e293b;
+            --hero-text: #f8fafc;
+            --hero-shadow: 0 0 20px rgba(248, 250, 252, 0.4);
+        }
 
-/* PARTICLES */
-#particles{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); transition: background-color var(--transition); overflow-x: hidden; width: 100%; }
+        a { text-decoration: none; color: inherit; }
 
-/* NAVIGATION */
-nav{
-position:fixed;
-width:100%;
-top:0;
-background:rgba(255,255,255,0.95);
-backdrop-filter:blur(10px);
-box-shadow:0 4px 15px rgba(0,0,0,0.05);
-z-index:100;
-}
+        /* LOADER */
+        #loader { position: fixed; inset: 0; background: var(--bg); display: flex; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.8s ease; }
+        .loader-logo { width: 100px; height: 100px; animation: pulse 1.5s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.7; } }
 
-.container{
-width:90%;
-max-width:1200px;
-margin:auto;
-}
+        /* BACK TO TOP */
+        #backToTop { position: fixed; bottom: 30px; right: 30px; background: var(--primary); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; opacity: 0; transition: 0.3s; z-index: 999; border: none; font-size: 28px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        #backToTop.show { opacity: 1; }
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-}
+        /* NAV FIXES */
+        nav { position: fixed; width: 100%; top: 0; background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); z-index: 2000; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; width: 90%; margin: auto; position: relative; }
+        .logo-box { display: flex; align-items: center; gap: 12px; cursor: pointer; z-index: 2010; }
+        .nav-logo { height: 38px; width: 38px; }
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; z-index: 2011; padding: 10px; }
+        .hamburger span { width: 28px; height: 3px; background: var(--primary); border-radius: 2px; }
 
-.logo{
-font-size:22px;
-font-weight:bold;
-color:#2563eb;
-}
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-item { font-weight: 600; cursor: pointer; padding: 8px 12px; border-radius: 8px; }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: bold;
-  font-size: 20px;
-  cursor: pointer;
-}
+        /* HERO & TYPEWRITER */
+        .hero { text-align: center; padding: 180px 0 80px; }
+        #typewriter { font-size: 3rem; min-height: 90px; font-weight: 800; color: var(--hero-text); text-shadow: var(--hero-shadow, none); }
 
-.nav-logo {
-  height: 28px;
-  width: 28px;
-}
+        /* SECTIONS */
+        section { padding: 80px 0; }
+        .container { width: 90%; max-width: 1200px; margin: auto; }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--primary); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: var(--card); padding: 40px; border-radius: 25px; text-align: center; transition: 0.3s; border: 1px solid rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .btn { background: var(--gradient); color: white !important; padding: 12px 30px; border-radius: 50px; font-weight: 700; display: inline-block; margin-top: 15px; }
 
-.nav-links{
-display:flex;
-gap:25px;
-align-items:center;
-}
+        /* TIMELINE RESTORED */
+        .timeline { position: relative; max-width: 800px; margin: auto; }
+        .timeline::before { content: ''; position: absolute; left: 50%; width: 2px; height: 100%; background: var(--primary); transform: translateX(-50%); }
+        .timeline-item { width: 50%; padding: 20px 40px; position: relative; }
+        .timeline-item.left { text-align: right; left: 0; }
+        .timeline-item.right { text-align: left; left: 50%; }
+        .timeline-dot { position: absolute; top: 25px; width: 16px; height: 16px; background: var(--primary); border-radius: 50%; left: 50%; transform: translateX(-50%); border: 3px solid var(--bg); }
 
-.nav-links a{
-text-decoration:none;
-color:#0f172a;
-font-weight:500;
-transition:0.3s;
-}
+        /* FAQ */
+        .faq-item { background: var(--card); margin-bottom: 10px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); overflow: hidden; }
+        .faq-q { width: 100%; padding: 18px; text-align: left; background: none; border: none; color: var(--text); font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-a { max-height: 0; overflow: hidden; transition: 0.3s; padding: 0 18px; opacity: 0.8; }
+        .faq-item.active .faq-a { max-height: 150px; padding-bottom: 18px; }
 
-.nav-links a:hover{
-color:#2563eb;
-}
+        /* TEAM RESTORED */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .team-card { background: var(--card); padding: 20px; border-radius: 15px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(0,0,0,0.05); }
+        .avatar { width: 50px; height: 50px; background: var(--gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0; }
 
-.dropdown{
-position:relative;
-}
-
-.dropdown-menu{
-position:absolute;
-top:45px;
-right:0;
-background:white;
-border-radius:12px;
-box-shadow:0 15px 35px rgba(0,0,0,0.15);
-display:none;
-flex-direction:column;
-min-width:180px;
-padding:10px 0;
-opacity:0;
-transform:translateY(-10px);
-transition:0.3s;
-}
-
-.dropdown-menu.show{
-display:flex;
-opacity:1;
-transform:translateY(0);
-}
-
-.dropdown-menu a{
-padding:12px 15px;
-text-decoration:none;
-color:#0f172a;
-font-weight:500;
-}
-
-.dropdown-menu a:hover{
-background:#e0edff;
-}
-
-.btn{
-background:linear-gradient(135deg,#2563eb,#3b82f6);
-color:white;
-padding:10px 20px;
-border-radius:25px;
-text-decoration:none;
-font-weight:500;
-transition:0.3s;
-}
-
-.btn:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 25px rgba(37,99,235,0.4);
-}
-
-.theme-toggle{
-background:#e0edff;
-border:none;
-width:40px;
-height:40px;
-border-radius:50%;
-cursor:pointer;
-}
-
-/* HERO */
-.hero{
-padding-top:150px;
-padding-bottom:100px;
-text-align:center;
-}
-
-#typewriter{
-font-family:Courier New,monospace;
-font-size:38px;
-font-weight:700;
-min-height:50px;
-}
-
-.highlight-box{
-margin-top:30px;
-display:inline-block;
-padding:20px 50px;
-border-radius:60px;
-background:linear-gradient(90deg,#60a5fa,#1e3a8a);
-color:white;
-font-weight:700;
-box-shadow:0 0 30px rgba(37,99,235,0.4);
-}
-
-/* SECTIONS */
-section{
-padding:90px 0;
-}
-
-.section-title{
-text-align:center;
-margin-bottom:50px;
-font-size:28px;
-font-weight:bold;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:30px;
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:18px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-transition:0.3s;
-text-align:center;
-}
-
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 20px 40px rgba(0,0,0,0.15);
-}
-
-/* Fix Explore button padding only inside cards */
-.card .btn{
-padding:16px 42px !important;
-margin-top:25px !important;
-line-height:1 !important;
-display:inline-block;
-}
-
-/* TEAM */
-.team-card{
-display:flex;
-align-items:center;
-gap:15px;
-background:white;
-padding:20px;
-border-radius:16px;
-box-shadow:0 8px 25px rgba(0,0,0,0.05);
-cursor:pointer;
-transition:0.3s;
-}
-
-.team-card:hover{
-transform:translateY(-6px);
-}
-
-.avatar{
-width:50px;
-height:50px;
-border-radius:50%;
-background:linear-gradient(135deg,#2563eb,#3b82f6);
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-font-weight:bold;
-}
-
-.linkedin{
-margin-left:auto;
-color:#0a66c2;
-font-size:20px;
-}
-
-/* FOOTER */
-footer{
-background:white;
-padding:60px 20px;
-text-align:center;
-line-height:2;
-color:#64748b;
-}
-
-/* DARK MODE */
-body.dark{
-background:#0f172a;
-color:white;
-}
-
-body.dark nav{
-background:#1e293b;
-}
-
-body.dark .nav-links a{
-color:white;
-}
-
-body.dark .dropdown-menu{
-background:#1e293b;
-}
-
-body.dark .dropdown-menu a{
-color:white;
-}
-
-body.dark .card,
-body.dark .team-card,
-body.dark footer{
-background:#1e293b;
-color:white;
-}
-
-body.dark .btn{
-background:linear-gradient(135deg,#3b82f6,#2563eb);
-}
-
-/*MAINTENANCE*/
-.maintenance-bar{
-background:#facc15;
-color:#000;
-font-weight:600;
-padding:6px 0;
-border-bottom:2px solid #000;
-font-size:14px;
-letter-spacing:1px;
-}
-</style>
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: var(--card); flex-direction: column; justify-content: center; z-index: 2005; transition: 0.4s; }
+            .nav-links.active { right: 0; }
+            .timeline::before { left: 20px; }
+            .timeline-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
+            .timeline-dot { left: 20px; }
+        }
+    </style>
 </head>
 <body>
 
-<canvas id="particles"></canvas>
+<div id="loader"><img src="logo.png" class="loader-logo"></div>
+<button id="backToTop">↑</button>
 
 <nav>
-<div class="container navbar">
-<div class="logo" onclick="scrollToTop()">
-  <img src="logo.png" alt="HexnicAI Logo" class="nav-logo">
-  <span>HexnicAI</span>
-</div>
-
-<div class="nav-links">
-<a href="#modules">Modules</a>
-<a href="#team">Team</a>
-
-<div class="dropdown">
-<a href="javascript:void(0)" id="githubBtn">GitHub ▾</a>
-<div class="dropdown-menu" id="githubMenu">
-<a href="https://github.com/ATS-001/studyai-2026">StudyAI Repo</a>
-<a href="https://github.com/abhinavnixabvv-hue/speak-easy-tools">Speak Easy Repo</a>
-</div>
-</div>
-
-<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-</div>
-</div>
+    <div class="nav-container">
+        <div class="logo-box" onclick="window.scrollTo(0,0)">
+            <img src="logo.png" class="nav-logo">
+            <strong style="font-size: 1.3rem; color: var(--primary);">HexnicAI</strong>
+        </div>
+        <div class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></div>
+        <div class="nav-links" id="navLinks">
+            <a href="#modules" class="nav-item">Modules</a>
+            <a href="#timeline" class="nav-item">Roadmap</a>
+            <a href="#faq" class="nav-item">FAQ</a>
+            <a href="#team" class="nav-item">Team</a>
+            <button onclick="toggleTheme()" id="themeBtn" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">🌙</button>
+        </div>
+    </div>
 </nav>
 
 <section class="hero">
-<div class="container">
-<h1 id="typewriter"></h1>
-<div class="highlight-box">
-<br><br>
-<button id="installBtn" class="btn" style="display:none;">Install HexnicAI App</button>
-Smart planning and accessible learning in one platform
-</div>
-</div>
+    <div class="container">
+        <h1 id="typewriter"></h1>
+        <div class="btn" style="pointer-events:none">Smart Planning & Inclusivity</div>
+    </div>
 </section>
-    
-<div class="maintenance-bar">
-<marquee behavior="scroll" direction="left">
-⚠ WEBSITE UNDER MAINTENANCE — Some features may be temporarily unavailable.
-</marquee>
-</div>
-    
-<section id="modules">
-<div class="container">
-<div class="section-title">Our Modules</div>
-<div class="grid">
-<div class="card">
-<h3>StudyAI</h3>
-<p>AI-based smart study planner for personalized scheduling.</p>
-<p></p>
-<a href="#" class="btn">Explore</a>
-</div>
 
-<div class="card">
-<h3>Speak Easy Tools</h3>
-<p>Inclusive tools supporting speech and assistive learning.</p>
-<p></p>
-<a href="https://speak-easy-tools.vercel.app/" class="btn">Explore</a>
-</div>
-</div>
-</div>
+<section id="modules">
+    <div class="container">
+        <h2 class="section-title">Our Modules</h2>
+        <div class="grid">
+            <div class="card" data-aos="fade-up">
+                <h2>StudyAI</h2>
+                <p>AI-driven planner that adjusts study time based on subject difficulty.</p>
+                <a href="#" class="btn">Explore</a>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <h2>Speak Easy</h2>
+                <p>Assistive tools designed for inclusive learning and speech support.</p>
+                <a href="https://speak-easy-tools.vercel.app/" class="btn">Explore</a>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <h2>Coming Soon</h2>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="timeline" style="background: rgba(37,99,235,0.02);">
+    <div class="container">
+        <h2 class="section-title">Development Roadmap</h2>
+        <div class="timeline">
+            <div class="timeline-item left" data-aos="fade-right"><div class="timeline-dot"></div><h3>2023</h3><p>ATS-PDZ Foundation</p></div>
+            <div class="timeline-item right" data-aos="fade-left"><div class="timeline-dot"></div><h3>2025</h3><p>HexnicAI Conceptualized</p></div>
+            <div class="timeline-item left" data-aos="fade-right"><div class="timeline-dot"></div><h3>2026</h3><p>Full Platform Launch</p></div>
+        </div>
+    </div>
+</section>
+
+<section id="faq">
+    <div class="container">
+        <h2 class="section-title">FAQ</h2>
+        <div style="max-width:800px; margin:auto;">
+            <div class="faq-item"><button class="faq-q">What is HexnicAI? <span>+</span></button><div class="faq-a">A unified platform for AI study planning and speech accessibility.</div></div>
+            <div class="faq-item"><button class="faq-q">Is it free? <span>+</span></button><div class="faq-a">The core modules are built to be accessible for all learners.</div></div>
+        </div>
+    </div>
+</section>
+
+<section id="feedback" style="text-align:center; background: var(--gradient); color:white;">
+    <div class="container">
+        <h2 style="margin-bottom:20px;">Help Us Improve</h2>
+        <p style="margin-bottom:30px;">Your suggestions help make HexnicAI more inclusive for everyone.</p>
+        <a href="https://forms.gle/6EHxeqddKF2eyuMG6" target="_blank" class="btn" style="background:white; color:var(--primary)!important;">Send Feedback</a>
+    </div>
 </section>
 
 <section id="team">
-<div class="container">
-<div class="section-title">Built by <strong>Students</strong> from <strong>VAST</strong></div>
-<div class="grid">
-
-<div class="team-card" onclick="window.open('https://www.linkedin.com/in/aaronts127pdz/')">
-<div class="avatar">ATS</div>
-Aaron Thalakkottor Sooraj<br>
-Founder (HexnicAI)<br>
-Co-Developer (StudyAI)
-<div class="linkedin">in</div>
-</div>
-
-<div class="team-card" onclick="window.open('https://www.linkedin.com/in/alwin-thomas-v-033057384/')">
-<div class="avatar">AT</div>
-Alwin Thomas V<br>
-Co-Developer (Study AI)
-<div class="linkedin">in</div>
-</div>
-
-<div class="team-card" onclick="window.open('https://www.linkedin.com/in/abhinav-n-713a84383/')">
-<div class="avatar">AN</div>
-Abhinav N<br>
-Co-Developer (Speak Easy Tools)
-<div class="linkedin">in</div>
-</div>
-
-<div class="team-card" onclick="window.open('https://www.linkedin.com/in/adithya-binesh-631270388/')">
-<div class="avatar">AB</div>
-Adithya Binesh<br>
-Co-Developer (Speak Easy Tools)
-<div class="linkedin">in</div>
-</div>
-
-<div class="team-card" onclick="window.open('https://www.linkedin.com/in/adhin-seby-4b6b45384/')">
-<div class="avatar">AS</div>
-Adhin Seby
-<div class="linkedin">in</div>
-</div>
-
-<div class="team-card" onclick="window.open('https://www.linkedin.com/in/akshay-t-s-487b90382/')">
-<div class="avatar">AK</div>
-Akshay T S
-<div class="linkedin">in</div>
-</div>
-
-
-</div>
-</div>
+    <div class="container">
+        <h2 class="section-title">The Developers</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="avatar">ATS</div>
+                <div><strong>Aaron T.S.</strong><br><small>Founder & Lead</small></div>
+            </div>
+            <div class="team-card">
+                <div class="avatar">AT</div>
+                <div><strong>Alwin Thomas V</strong><br><small>Co-Developer (Study AI)</small></div>
+            </div>
+            <div class="team-card">
+                <div class="avatar">AN</div>
+                <div><strong>Abhinav N</strong><br><small>Co-Developer (Speak Easy)</small></div>
+            </div>
+            <div class="team-card">
+                <div class="avatar">AB</div>
+                <div><strong>Adithya Binesh</strong><br><small>Lead (Speak Easy)</small></div>
+            </div>
+            <div class="team-card">
+                <div class="avatar">AS</div>
+                <div><strong>Adhin Seby</strong><br><small>Co-Developer</small></div>
+            </div>
+            <div class="team-card">
+                <div class="avatar">AK</div>
+                <div><strong>Akshay T S</strong><br><small>Co-Developer</small></div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<footer>
-<p><center>Developed by <strong>Students</strong> of <i>Vidya Academy of Science and Technology</i></center><p>
-<p>LEGAL- A PART OF ATS_PDZ (AARONTS)</p>
-<p>COPYRIGHT © SINCE 2023 | ATS-PDZ</p>
-<p>ALL RIGHTS RESERVED.</p>
+<footer style="background:#0f172a; color:white; padding:40px 0; text-align:center;">
+    <p>Developed by Students of Vidya Academy of Science and Technology</p>
+    <p>© 2026 HexnicAI | Part of ATS_PDZ</p>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-//SCROLL TO TOP
-function scrollToTop(){
-window.scrollTo({
-top: 0,
-behavior: "smooth"
-});
-}
-// TYPEWRITER
-const text="AI-Based Personalized and Inclusive Learning Platform";
-let i=0;
-function type(){
-if(i<text.length){
-document.getElementById("typewriter").innerHTML+=text.charAt(i);
-i++;
-setTimeout(type,40);
-}
-}
-type();
+    AOS.init({ duration: 800, once: true });
 
-// DROPDOWN FIX
-const btn=document.getElementById("githubBtn");
-const menu=document.getElementById("githubMenu");
+    // Menu Logic
+    const h = document.getElementById('hamburgerBtn'), n = document.getElementById('navLinks');
+    h.onclick = (e) => { e.stopPropagation(); n.classList.toggle('active'); };
+    window.onclick = () => n.classList.remove('active');
 
-btn.addEventListener("click",(e)=>{
-e.stopPropagation();
-menu.classList.toggle("show");
-});
+    // Typewriter
+    const txt = "AI-Based Personalized and Inclusive Learning Platform";
+    let i = 0;
+    function type() { if(i < txt.length) { document.getElementById('typewriter').innerHTML += txt.charAt(i++); setTimeout(type, 50); } }
 
-document.addEventListener("click",()=>{
-menu.classList.remove("show");
-});
+    // FAQ
+    document.querySelectorAll('.faq-q').forEach(q => q.onclick = () => q.parentElement.classList.toggle('active'));
 
-// DARK MODE
-function toggleTheme(){
-document.body.classList.toggle("dark");
+    // Theme
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        document.getElementById('themeBtn').innerText = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    }
 
-const btn = document.querySelector(".theme-toggle");
+    window.onload = () => {
+        setTimeout(() => { document.getElementById('loader').style.display='none'; type(); }, 1000);
+    };
 
-if(document.body.classList.contains("dark")){
-    btn.textContent = "☀️";
-} else {
-    btn.textContent = "🌙";
-}
-}
-
-// PARTICLES (Brownian Motion)
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-
-for(let i=0;i<80;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-vx:(Math.random()-0.5)*0.5,
-vy:(Math.random()-0.5)*0.5,
-r:2+Math.random()*2
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-p.x+=p.vx+(Math.random()-0.5)*0.3;
-p.y+=p.vy+(Math.random()-0.5)*0.3;
-
-if(p.x<0||p.x>canvas.width)p.vx*=-1;
-if(p.y<0||p.y>canvas.height)p.vy*=-1;
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle=document.body.classList.contains("dark")?"white":"#3b82f6";
-ctx.fill();
-});
-
-requestAnimationFrame(animate);
-}
-animate();
-
-/* PWA INSTALL */
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt',(e)=>{
-e.preventDefault();
-deferredPrompt = e;
-
-const btn = document.getElementById("installBtn");
-btn.style.display = "inline-block";
-
-btn.addEventListener("click",()=>{
-deferredPrompt.prompt();
-deferredPrompt.userChoice.then(()=>{
-deferredPrompt=null;
-});
-});
-});
+    window.onscroll = () => {
+        document.getElementById('backToTop').classList.toggle('show', window.scrollY > 400);
+    };
 </script>
-
 </body>
 </html>
